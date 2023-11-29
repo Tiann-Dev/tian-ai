@@ -28,7 +28,6 @@ def cek_ml():
         else:
                 print(f"Error: {response.status_code}")
                 print(response.text)
-
 def down_yt():
     try:
         hu = input("Masukan URL: ")
@@ -47,7 +46,7 @@ def down_yt():
             print("Published: ", data['data']['published'])
             print("Views: ", data['data']['views'])
 
-            download_directory = "/sdcard/Download/Tiann-Ai/Video"
+            download_directory = "/sdcard/Download/Tiann-Ai/Youtube Video"
             
             os.makedirs(download_directory, exist_ok=True)
 
@@ -79,22 +78,76 @@ def down_yt():
     except Exception as e:
         print(f"An error occurred: {e}")
 
+def downau_yt():
+    try:
+        hu = input("Masukan URL: ")
+        api_url = "https://api.miftahganzz.my.id/api/download/youtube-audio"
+        api_key = "skynkt"
 
+        url = f"{api_url}?url={hu}&apikey={api_key}"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            data = response.json()
+            video_url = data['data']['url']
+            print("Judul: ", data['data']['title'])
+            print("Thumbnail: ", data['data']['thumb'])
+            print("Channel: ", data['data']['channel'])
+            print("Published: ", data['data']['published'])
+            print("Views: ", data['data']['views'])
+
+            download_directory = "/sdcard/Download/Tiann-Ai/Youtube Audio"
+            
+            os.makedirs(download_directory, exist_ok=True)
+
+            print("Tunggu Sebentar ...")
+            
+            response_video = requests.get(video_url, stream=True)
+            
+            if response_video.status_code == 200:
+                video_title = data['data']['title']
+                file_name = os.path.join(download_directory, f"{video_title}.mp4")
+                file_size = int(response_video.headers.get('content-length', 0))
+
+                progress_bar = tqdm(total=file_size, unit='B', unit_scale=True)
+                
+                with open(file_name, 'wb') as video_file:
+                    for chunk in response_video.iter_content(chunk_size=1024):
+                        if chunk:
+                            video_file.write(chunk)
+                            progress_bar.update(len(chunk))
+
+                progress_bar.close()
+                print(f"\nVideo downloaded successfully to {file_name}")
+            else:
+                print(f"Error downloading video: {response_video.status_code}")
+                print(response_video.text)
+        else:
+            print(f"Error getting video information: {response.status_code}")
+            print(response.text)
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 print('''
 
 
-AI TIAN
+___________.__                                  _____  .___ 
+\__    ___/|__|____    ____   ____             /  _  \ |   |
+  |    |   |  \__  \  /    \ /    \   ______  /  /_\  \|   |
+  |    |   |  |/ __ \|   |  \   |  \ /_____/ /    |    \   |
+  |____|   |__(____  /___|  /___|  /         \____|__  /___|
+                   \/     \/     \/                  \/     
 
 
 ''')
-print("1. Chat GPT\n2. Cek ID Mobile Legends\n3. Download VIdeo Youtube")
-hua = input("Pilih: ")
+print("  1. Chat GPT\n  2. Cek ID Mobile Legends\n  3. Download VIdeo Youtube\n  4. Download Audio Youtube")
+hua = input("  Pilih: ")
 
 if hua in ['1']:
         gpt()
 if hua in ['2']:
         cek_ml()
 if hua in ['3']:
-        os.system("mkdir video")
         down_yt()
+if hua in ['3']:
+        downau_yt()

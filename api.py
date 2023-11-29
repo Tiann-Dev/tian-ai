@@ -3,13 +3,7 @@ import json
 import time
 from tqdm import tqdm 
 import os
-import sys
 
-#os.sytem("cd /sdcard/Download)
-os.system("mkdir /sdcard/Download/Tiann-AI")
-os.system("mkdir /sdcard/Download/Tiann-AI/Video")
-os.system("clear")
-         
 def gpt():
         user = "Tiann Dev"
         prompt = input("\nMasukan Query: ")
@@ -35,10 +29,13 @@ def cek_ml():
                 print(f"Error: {response.status_code}")
                 print(response.text)
 
-def down_yt(destination_path=None):
+def down_yt():
     try:
         hu = input("Masukan URL: ")
-        url = f"https://api.miftahganzz.my.id/api/download/youtube-video?url={hu}&apikey=skynkt"
+        api_url = "https://api.miftahganzz.my.id/api/download/youtube-video"
+        api_key = "skynkt"
+
+        url = f"{api_url}?url={hu}&apikey={api_key}"
         response = requests.get(url)
 
         if response.status_code == 200:
@@ -49,21 +46,20 @@ def down_yt(destination_path=None):
             print("Channel: ", data['data']['channel'])
             print("Published: ", data['data']['published'])
             print("Views: ", data['data']['views'])
+
+            download_directory = "/sdcard/Download/Tiann-Ai/Video"
             
+            os.makedirs(download_directory, exist_ok=True)
+
             print("Tunggu Sebentar ...")
             
-            # Download the video content
             response_video = requests.get(video_url, stream=True)
             
             if response_video.status_code == 200:
                 video_title = data['data']['title']
-
-                file_name = f"{video_title}.mp4"
-
-                # Get the total file size for the progress bar
+                file_name = os.path.join(download_directory, f"{video_title}.mp4")
                 file_size = int(response_video.headers.get('content-length', 0))
 
-                # Initialize the progress bar
                 progress_bar = tqdm(total=file_size, unit='B', unit_scale=True)
                 
                 with open(file_name, 'wb') as video_file:
@@ -73,7 +69,6 @@ def down_yt(destination_path=None):
                             progress_bar.update(len(chunk))
 
                 progress_bar.close()
-
                 print(f"\nVideo downloaded successfully to {file_name}")
             else:
                 print(f"Error downloading video: {response_video.status_code}")
@@ -83,6 +78,8 @@ def down_yt(destination_path=None):
             print(response.text)
     except Exception as e:
         print(f"An error occurred: {e}")
+
+
 
 print('''
 
@@ -99,4 +96,5 @@ if hua in ['1']:
 if hua in ['2']:
         cek_ml()
 if hua in ['3']:
-        down_yt(destination_path="/sdcard/Download/Tian-Ai/Video")
+        os.system("mkdir video")
+        down_yt()

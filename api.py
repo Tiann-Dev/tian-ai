@@ -7,6 +7,7 @@ import sys
 
 #os.sytem("cd /sdcard/Download)
 os.system("mkdir /sdcard/Download/Tiann-AI")
+os.system("mkdir /sdcard/Download/Tiann-AI/Video")
 os.system("clear")
          
 def gpt():

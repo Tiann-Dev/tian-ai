@@ -126,7 +126,6 @@ def downau_yt():
             print(response.text)
     except Exception as e:
         print(f"An error occurred: {e}")
-
 def down_fb():
     try:
         hu = input("Masukan URL: ")
@@ -140,7 +139,7 @@ def down_fb():
             data = response.json()
             print("  Link Valid!")
 
-            download_choice = input("Pilih download:\n1. Video SD\n2. Video HD\n3. Audio\nPilihan: ")
+            download_choice = input("  Pilih download:\n  1. Video SD\n  2. Video HD\n  3. Audio\nPilihan: ")
 
             if download_choice == '1':
                 download_video(data['data']['video_sd'])
@@ -149,13 +148,12 @@ def down_fb():
             elif download_choice == '3':
                 download_audio(data['data']['audio'])
             else:
-                print("Pilihan tidak valid.")
+                print("  Pilihan tidak valid.")
         else:
             print(f"Error getting video information: {response.status_code}")
             print(response.text)
     except Exception as e:
         print(f"An error occurred: {e}")
-
 def download_video(video_url):
     try:
         download_directory = "/sdcard/Download/Tiann-Ai/Facebook"
@@ -178,7 +176,6 @@ def download_video(video_url):
 
     except Exception as e:
         print(f"Error downloading video: {e}")
-
 def download_audio(audio_url):
     try:
         download_directory = "/sdcard/Download/Tiann-Ai/Facebook"
@@ -201,10 +198,43 @@ def download_audio(audio_url):
 
     except Exception as e:
         print(f"Error downloading audio: {e}")
-
 def get_file_size(url):
     response = requests.head(url)
     return int(response.headers.get('content-length', 0))
+def gc_wa():
+    prompt = input("\nMasukan Query: ")
+    url = f"https://api.miftahganzz.my.id/api/search/groupwa?q={prompt}&apikey=skynkt"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        for group in data['data']:
+            print("Nama: ", group['nama'])
+            print("Link: ", group['link'])
+    else:
+        print(f"Error: {response.status_code}")
+        print(response.text)
+
+def bkp_lst():
+    url = "https://api.miftahganzz.my.id/api/18/bokep/latest?apikey=skynkt"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        for group in data.get('data', []):
+            title = group.get('title', 'N/A')
+            url = group.get('url', 'N/A')
+            views = group.get('views', 'N/A')
+            dur = group.get('duration', 'N/A')
+
+            print("Judul: ", title)
+            print("Duration: ", dur)
+            print("Views: ", views)
+            print("Link: ", url,"\n")
+
+    else:
+        print(f"Error: {response.status_code}")
+        print(response.text)
 
 print('''
 
@@ -218,7 +248,7 @@ ___________.__                                  _____  .___
 
 
 ''')
-print("  1. Chat GPT\n  2. Cek ID Mobile Legends\n  3. Download VIdeo Youtube\n  4. Download Audio Youtube\n  5. Download Video/Audio Facebook")
+print("  1. Chat GPT\n  2. Cek ID Mobile Legends\n  3. Download VIdeo Youtube\n  4. Download Audio Youtube\n  5. Download Video/Audio Facebook\n  6. Download Video Instagram\n  7. Cari Grup Whatsapp\n  8. Bokep Latest")
 hua = input("  Pilih: ")
 
 if hua in ['1']:
@@ -231,3 +261,9 @@ if hua in ['4']:
         down_yt()
 if hua in ['5']:
         down_fb()
+if hua in ['6']:
+       print("Close")
+if hua in ['7']:
+        gc_wa()
+if hua in ['8']:
+        bkp_lst()

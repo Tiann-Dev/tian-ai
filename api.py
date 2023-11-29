@@ -58,11 +58,7 @@ def down_yt(destination_path=None):
             if response_video.status_code == 200:
                 video_title = data['data']['title']
 
-                # # If destination_path is not provided, use the default filename in the current directory
-                # if destination_path is None:
-                #     file_name = f"{video_title}.mp4"
-                # else:
-                #     file_name = f"{destination_path}/{video_title}.mp4"
+                file_name = f"{video_title}.mp4"
 
                 # Get the total file size for the progress bar
                 file_size = int(response_video.headers.get('content-length', 0))

@@ -149,5 +149,5 @@ if hua in ['2']:
         cek_ml()
 if hua in ['3']:
         down_yt()
-if hua in ['3']:
+if hua in ['4']:
         downau_yt()

@@ -6,7 +6,7 @@ import os
 import sys
 
 #os.sytem("cd /sdcard/Download)
-os.sytem("mkdir /sdcard/Download/Tiann-AI")
+os.system("mkdir /sdcard/Download/Tiann-AI")
 os.system("clear")
          
 def gpt():

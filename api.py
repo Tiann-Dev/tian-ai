@@ -214,7 +214,6 @@ def gc_wa():
     else:
         print(f"Error: {response.status_code}")
         print(response.text)
-
 def bkp_lst():
     url = "https://api.miftahganzz.my.id/api/18/bokep/latest?apikey=skynkt"
     response = requests.get(url)
@@ -235,6 +234,22 @@ def bkp_lst():
     else:
         print(f"Error: {response.status_code}")
         print(response.text)
+def vcc():
+    print("  AmericanExpress: 349529 | Visa: 464140 | MasterCard: 522146 | Discover: 646809")
+    prompt = input("\n  Masukan Bin: ")
+    url = f"https://api.lolhuman.xyz/api/vccgenerator?apikey=tianndev&bin={prompt}"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        for group in data['result']:
+            print("Nomor Kartu: ", group['card_number'])
+            print("Masa Aktif: ", group['expiration_date'])
+            print("CVV: ", group['cvv'])
+            print()
+    else:
+        print(f"Error: {response.status_code}")
+        print(response.text)
 
 print('''
 
@@ -248,7 +263,7 @@ ___________.__                                  _____  .___
 
 
 ''')
-print("  1. Chat GPT\n  2. Cek ID Mobile Legends\n  3. Download VIdeo Youtube\n  4. Download Audio Youtube\n  5. Download Video/Audio Facebook\n  6. Download Video Instagram\n  7. Cari Grup Whatsapp\n  8. Bokep Latest")
+print("  1. Chat GPT\n  2. Cek ID Mobile Legends\n  3. Download VIdeo Youtube\n  4. Download Audio Youtube\n  5. Download Video/Audio Facebook\n  6. Download Video Instagram\n  7. Cari Grup Whatsapp\n  8. Bokep Latest\n  9. Random Virtual Credit Card")
 hua = input("  Pilih: ")
 
 if hua in ['1']:
@@ -267,3 +282,5 @@ if hua in ['7']:
         gc_wa()
 if hua in ['8']:
         bkp_lst()
+if hua in ['9']:
+        vcc()

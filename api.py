@@ -5,6 +5,9 @@ from tqdm import tqdm
 import os
 import sys
 
+#os.sytem("cd /sdcard/Download)
+os.sytem(("mkdir /sdcard/Download/Tiann-AI")
+         
 def gpt():
         user = "Tiann Dev"
         prompt = input("\nMasukan Query: ")

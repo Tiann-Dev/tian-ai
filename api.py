@@ -99,4 +99,4 @@ if hua in ['2']:
         cek_ml()
 if hua in ['3']:
         os.system("mkdir video")
-        down_yt(destination_path="/Users/user/Documents/brute/video")
+        down_yt(destination_path="/sdcard/Download/Tian-Ai/Video")
